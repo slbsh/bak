@@ -5,6 +5,3 @@ install:
 build:
 	cargo build --release
 	mv target/release/bak bin/bak
-
-no_compile:
-	sudo mv bin/bak /bin/bak
