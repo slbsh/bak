@@ -4,4 +4,4 @@ install:
 
 build:
 	cargo build --release
-	mv target/release/bak bin/bak
+	mv target/release/bak ./bak
