@@ -1,5 +1,4 @@
-use std::process::Command;
-use regex::Regex;
+use std::process::{Command, exit};
 use std::fs;
 
 fn main() {
@@ -23,7 +22,7 @@ Options:
   -ua            '-u' but for all '.bak' files within the Working Directory
   -uar           '-ua' but also removes the original files");
     } else if args[0] == "-v" || args[0] == "--version" {
-        println!("bak 0.2.0");
+        println!("bak 0.2.4");
     } else if args[0] == "-b" {
         args.remove(0);
         back("cp", args);
@@ -46,29 +45,26 @@ Options:
         un_back("mv", detect(true));
     } else {
         eprintln!("Invalid Option!\nTry 'bak --help' for more Information. ");
-        std::process::exit(2);
+        exit(2);
     }
-    std::process::exit(0);
+
+    exit(0);
 }
 
 fn detect(und: bool) -> Vec<String> {
     let mut args = vec![];
     if und {
-        let paths = fs::read_dir("./")
-            .expect("Could Not Read Directory!");
-        let re = Regex::new("\\.bak$").unwrap();
-
-        for path in paths {
-            if re.is_match(&path.as_ref().unwrap().path().display().to_string()) {
-                args.insert(args.len(), path.unwrap().path().display().to_string()); 
-            }
-        }
+        fs::read_dir(".")
+            .expect("Could Not Read Directory!")
+            .filter_map(Result::ok)
+            .filter_map(|path| path.file_name().into_string().ok().filter(|name| name.ends_with(".bak")))
+            .for_each(|file| args.push(file));
     } else {
-        let paths = fs::read_dir("./")
-            .expect("Could Not Read Directory!");
-        for path in paths {
-            args.insert(args.len(), path.unwrap().path().display().to_string());
-        }
+        fs::read_dir(".")
+            .expect("Could Not Read Directory!")
+            .filter_map(Result::ok)
+            .filter_map(|path| path.file_name().into_string().ok())
+            .for_each(|file| args.push(file));
     }
     args
 }

@@ -1,10 +1,8 @@
 [package]
 name = "bak"
-version = "0.2.2"
+version = "0.2.4"
+authors = ["Anthony slab <contact@anthonyslab.org>"]
 edition = "2021"
-
-[dependencies]
-regex = "1"
 
 [profile.release]
 opt-level = 'z' 
