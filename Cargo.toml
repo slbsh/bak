@@ -1,6 +1,6 @@
 [package]
 name = "bak"
-version = "0.2.4"
+version = "0.3.0"
 authors = ["Anthony slab <contact@anthonyslab.org>"]
 edition = "2021"
 
@@ -9,4 +9,5 @@ opt-level = 'z'
 lto = true
 codegen-units = 1
 panic = 'abort'
+Debug = false
 strip = true
