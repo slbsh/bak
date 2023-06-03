@@ -44,7 +44,7 @@ fn main() {
 }
 
 fn detect() -> Vec<String> {
-    let mut args = vec![];
+    let mut args = vec!["".to_string()];
     fs::read_dir(".")
         .expect("Could Not Read Directory!")
         .filter_map(Result::ok)
@@ -54,7 +54,7 @@ fn detect() -> Vec<String> {
 }
 
 fn detect_bak() -> Vec<String> {
-    let mut args = vec![];
+    let mut args = vec!["".to_string()];
     fs::read_dir(".")
         .expect("Could Not Read Directory!")
         .filter_map(Result::ok)
