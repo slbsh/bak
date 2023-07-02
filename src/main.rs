@@ -44,23 +44,19 @@ fn main() {
 }
 
 fn detect() -> Vec<String> {
-    let mut args = vec!["".to_string()];
     fs::read_dir(".")
         .expect("Could Not Read Directory!")
         .filter_map(Result::ok)
         .filter_map(|path| path.file_name().into_string().ok())
-        .for_each(|file| args.push(file));
-    args
+        .collect::<Vec<String>>()
 }
 
 fn detect_bak() -> Vec<String> {
-    let mut args = vec!["".to_string()];
     fs::read_dir(".")
         .expect("Could Not Read Directory!")
         .filter_map(Result::ok)
         .filter_map(|path| path.file_name().into_string().ok().filter(|name| name.ends_with(".bak")))
-        .for_each(|file| args.push(file));
-    args
+        .collect::<Vec<String>>()
 }
 
 fn un_back(cmd: &str, args: Vec<String>) {
